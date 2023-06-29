@@ -59,15 +59,53 @@ function whereAt(x, y) {
 console.log("EXERCISE 4:\n==========\n");
 
 function triAngle(a, b, c) {
-    if(a > b < c){
-        console.log("Scalene Triange");
+    if((a < c && b < c) || (a < 0 || b < 0 || c < 0)){
+        console.log("Makes an invalid triangle");
     } else if(a === b && a === c){
         console.log("Equilateral Triangle");
     } else if((a === b && a != c) || (a === c && a != b) || (b === c && b != a)){
         console.log("Isosceles Triangle");
     } else {
-        console.log("makes an invalid triangle");
+        console.log("Scalene Triangle");
     }
 }
 
-triAngle(1, 2, 2);
+triAngle(1, 2, 2); //iso
+triAngle(2, 2, 2); //equal
+triAngle(1, 1, 4); //invalid
+triAngle(4, 3, 2); //scalene
+triAngle(-1, -3, -2); //neg check
+
+// Exercise 5 Section
+console.log("EXERCISE 5:\n==========\n");
+
+
+function cellData(planLimit, day, usage) {
+    let daysRemaining = 30 - day;
+    let useAvg = usage / day;
+    let dailyAvgReq = planLimit / 30;
+    let remUse = planLimit - usage;   
+    let remData = Math.abs(planLimit - useAvg*30);
+    let newAvg = remUse / daysRemaining;
+
+    if (planLimit < usage) {
+        console.log("over");
+        return;
+    }
+
+    console.log(`${day} days used, ${daysRemaining} days remaining`);
+    console.log(`Average daily use: ${useAvg.toFixed(2)} GB/day`); 
+
+    if (useAvg > dailyAvgReq) {
+        console.log(`You are EXCEEDING your average daily use (${dailyAvgReq.toFixed(2)} GB/Day),
+continuing this high usage, you'll exceed your data plan by 11.9 GB.`);
+    } else if (useAvg < dailyAvgReq){
+        console.log(`You are UNDER your average daily use (${dailyAvgReq.toFixed(2)} GB/Day),
+        continuing this current usage, you'll go under your data plan by ${remData} GB. To stay below your data plan, use no more than ${newAvg.toFixed(2)} GB/day.`);
+    } else {
+        console.log("A-Okay");
+    } 
+
+}
+
+cellData(100, 15, 56);
